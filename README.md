@@ -1,70 +1,172 @@
-# Getting Started with Create React App
+# TP 2 : Gestion de l’état local et interactions utilisateurs avec React
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
 
-## Available Scripts
+Ce projet est le TP2 de React. Il approfondit les notions vues dans le TP1 en introduisant la gestion du state, les événements et les formulaires.
 
-In the project directory, you can run:
+---
 
-### `npm start`
+## Structure du projet
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in your browser.
+```
+tp2/
+├── public/
+│   ├── index.html
+│   └── ...
+│
+├── src/
+│   ├── App.js
+│   ├── App.css
+│   ├── index.js
+│   ├── index.css
+│   ├── Counter.js
+│   ├── Form.js
+│   ├── Toggle.js
+│   └── ...
+```
 
-The page will reload when you make changes.\
-You may also see any lint errors in the console.
+---
 
-### `npm test`
+## Installation et lancement
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+1. Installer les dépendances :
 
-### `npm run build`
+```bash
+npm install
+```
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
+2. Lancer l'application :
 
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
+```bash
+npm start
+```
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+---
 
-### `npm run eject`
+## 🧩 Composants du projet
 
-**Note: this is a one-way operation. Once you `eject`, you can't go back!**
+### 🔹 Counter
 
-If you aren't satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
+Composant qui utilise le state pour gérer un compteur.
 
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you're on your own.
+```javascript
+import { useState } from "react";
 
-You don't have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn't feel obligated to use this feature. However we understand that this tool wouldn't be useful if you couldn't customize it when you are ready for it.
+function Counter() {
+  const [count, setCount] = useState(0);
 
-## Learn More
+  return (
+    <div>
+      <h2>Compteur : {count}</h2>
+      <button onClick={() => setCount(count + 1)}>Incrémenter</button>
+      <button onClick={() => setCount(count - 1)}>Décrémenter</button>
+    </div>
+  );
+}
 
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
+export default Counter;
+```
 
-To learn React, check out the [React documentation](https://reactjs.org/).
+---
 
-### Code Splitting
+---
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/code-splitting](https://facebook.github.io/create-react-app/docs/code-splitting)
+### 🔹 Form
 
-### Analyzing the Bundle Size
+Composant pour gérer un formulaire avec state.
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size](https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size)
+```javascript
+import { useState } from "react";
 
-### Making a Progressive Web App
+function Form() {
+  const [name, setName] = useState("");
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app](https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app)
+  const handleSubmit = (e) => {
+    e.preventDefault();
+    alert("Nom : " + name);
+  };
 
-### Advanced Configuration
+  return (
+    <form onSubmit={handleSubmit}>
+      <input
+        type="text"
+        placeholder="Entrer votre nom"
+        value={name}
+        onChange={(e) => setName(e.target.value)}
+      />
+      <button type="submit">Envoyer</button>
+    </form>
+  );
+}
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/advanced-configuration](https://facebook.github.io/create-react-app/docs/advanced-configuration)
+export default Form;
+```
 
-### Deployment
+---
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/deployment](https://facebook.github.io/create-react-app/docs/deployment)
+### 🔹 App.js
 
-### `npm run build` fails to minify
+Composant principal qui regroupe tous les composants.
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
+```javascript
+import './App.css';
+import Counter from './Counter';
+import Toggle from './Toggle';
+import Form from './Form';
+
+function App() {
+  return (
+    <div className="App">
+      <h1>TP2 React</h1>
+      <Counter />
+      <Toggle />
+      <Form />
+    </div>
+  );
+}
+
+export default App;
+```
+
+---
+
+### 🔹 index.js
+
+Point d'entrée de l'application.
+
+```javascript
+import React from 'react';
+import ReactDOM from 'react-dom/client';
+import './index.css';
+import App from './App';
+
+const root = ReactDOM.createRoot(document.getElementById('root'));
+root.render(<App />);
+```
+---
+
+## Captures 
+
+
+## Objectifs du TP
+
+- Comprendre le hook useState  
+- Gérer les événements (onClick, onChange, onSubmit)  
+- Manipuler des formulaires  
+- Créer des composants interactifs  
+
+---
+
+## Technologies utilisées
+
+- React  
+- JavaScript (ES6)  
+- HTML  
+- CSS  
+
+---
+
+## Conclusion
+
+Ce TP permet de passer d’une application statique à une application dynamique en utilisant le state et les interactions utilisateur.
+
+---
